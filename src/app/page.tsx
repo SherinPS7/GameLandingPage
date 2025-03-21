@@ -5,7 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Chatbot from "./chatbot";
-import { Parallax } from "react-parallax";
+import Parallax from "react-parallax";
+
 import { useState, useEffect, useRef  } from "react";
 // Styled Cyberpunk Button
 const CyberpunkButton = styled(Button)({
@@ -39,7 +40,7 @@ const scrollToSection = (id) => {
 const cyberpunkCity = "/images/cyberpunck.png";
 const neonStreet = "/images/neon-street.jpg";
 const neonStreet1 = "/images/neonstreet.jpg";
-const pricingbg = "/images/pricing-bg.jpg";
+const pricingbg = "/images/pricing.png";
 const headphonebg = "/images/headphone-bg.png";
 // Images List
 const images = ["/images/game1.jpg", "/images/game2.jpg", "/images/game3.jpg", "/images/game4.jpg"];
@@ -134,7 +135,7 @@ export default function Home() {
       </Navbar>
 
       {/* Hero Section */}
-      <Parallax bgImage={neonStreet1} strength={500}>
+      <Parallax bgImage={neonStreet1} strength={500} className="parallax">
 
       <Container id="hero" maxWidth="xl" sx={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", pt: 10 }}>
         <Grid container spacing={4} alignItems="center">
@@ -172,10 +173,10 @@ export default function Home() {
       </Container>
       </Parallax>
       <Parallax
-  bgImage={cyberpunkCity}
-  strength={300}
-  renderLayer={(percentage) => (
-    <div
+      bgImage={cyberpunkCity}
+      strength={300}
+      renderLayer={(percentage: number) => (
+        <div
       style={{
         width: "100%",
         height: "100%",
@@ -185,7 +186,7 @@ export default function Home() {
         transform: `scale(${1 + percentage * 0.2})`, // Adjust scale effect for a more subtle scaling
         transition: "transform 0.3s ease-out", // Smooth transition for scaling
       }}
-    >
+        >
       <img
         src={headphonebg}
         alt="Cyberpunk Headphone"
@@ -195,9 +196,9 @@ export default function Home() {
           objectFit: "cover", // Ensure the image fits well without distorting
         }}
       />
-    </div>
-  )}
->
+        </div>
+      )}
+    >
   <Container id="headphone" maxWidth="xl" sx={{ py: 10, textAlign: "center", minHeight: "100vh" }}>
     <Typography variant="h3" sx={{ textShadow: "0px 0px 15px #00ccff", mb: 5 }}>
       Immerse Yourself in Sound
@@ -264,9 +265,45 @@ export default function Home() {
   </Container>
 </Parallax>
 
+<Parallax bgImage={pricingbg} strength={500}>
+  <Container id="pricing" maxWidth="xl" sx={{ py: 10, textAlign: "center" }}>
+    <Typography variant="h3" sx={{ textShadow: "0px 0px 15px #00ccff", mb: 5 }}>
+      Choose Your Plan
+    </Typography>
+
+    <Grid container spacing={4} justifyContent="center">
+      {[
+        { title: "Free", price: "$0/mo", features: ["Basic Access", "Single-Player Mode", "Limited Upgrades"], buttonText: "Get Started" },
+        { title: "Pro", price: "$9.99/mo", features: ["Multiplayer Mode", "Exclusive Skins", "Advanced Hacking Tools"], buttonText: "Upgrade to Pro" },
+        { title: "Premium", price: "$19.99/mo", features: ["All Pro Features", "VIP Content", "Early Access to Updates"], buttonText: "Go Premium" }
+      ].map((plan, index) => (
+        <Grid item xs={12} md={4} key={index}>
+          <Box sx={{
+            p: 4,
+            borderRadius: "10px",
+            boxShadow: "0px 0px 20px rgba(0, 204, 255, 0.6)",
+            backdropFilter: "blur(10px)", // Apply blur effect
+            backgroundColor: "rgba(0, 0, 0, 0.3)", // Semi-transparent background
+            transition: "0.3s",
+            "&:hover": { transform: "scale(1.05)" }
+          }}>
+            <Typography variant="h4" sx={{ color: "#00ccff", fontWeight: "bold", mb: 2 }}>{plan.title}</Typography>
+            <Typography variant="h5" sx={{ color: "#fff", mb: 3 }}>{plan.price}</Typography>
+            <Box sx={{ textAlign: "left", mb: 3 }}>
+              {plan.features.map((feature, idx) => (
+                <Typography key={idx} sx={{ opacity: 0.8, color: "#ddd", mb: 1 }}>✔ {feature}</Typography>
+              ))}
+            </Box>
+            <CyberpunkButton>{plan.buttonText}</CyberpunkButton>
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
+  </Container>
+</Parallax>
 
     
-<Parallax bgImage={neonStreet1} strength={500}>
+{/* <Parallax bgImage={pricingbg} strength={500}>
   <Container id="pricing" maxWidth="xl" sx={{ py: 10, textAlign: "center" }}>
     <Typography variant="h3" sx={{ textShadow: "0px 0px 15px #00ccff", mb: 5 }}>
       Choose Your Plan
@@ -299,7 +336,7 @@ export default function Home() {
       ))}
     </Grid>
   </Container>
-</Parallax>
+</Parallax> */}
 
 <Box sx={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
   <Chatbot />
