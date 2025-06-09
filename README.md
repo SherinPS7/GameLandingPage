@@ -33,4 +33,4 @@ A sleek, futuristic landing page designed with a **Cyberpunk** aesthetic to show
 
 ```bash
 git clone https://github.com/yourusername/cyberpunk-game-landing.git
-cd cyberpunk-game-landing
+cd gameLandingPage
